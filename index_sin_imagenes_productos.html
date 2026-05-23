@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Colmenas del Bosque – Miel Cruda del Tolima</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&amp;family=Nunito:wght@300;400;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    :root {
+      --miel:        #B87800;
+      --miel-claro:  #E8A800;
+      --miel-hover:  #9A6400;
+      --cafe-oscuro: #0E0500;
+      --cafe:        #2E1500;
+      --crema:       #FDF5E0;
+      --crema-2:     #FFF9EE;
+      --verde:       #152E12;
+      --verde-med:   #1F4219;
+      --verde-claro: #2D5A20;
+      --blanco:      #FFFEF9;
+      --sombra:      rgba(14,5,0,0.15);
+      --wsp:         #25D366;
+    }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family:'Nunito',sans-serif; background:var(--crema); color:var(--cafe); line-height:1.72; }
+    h1,h2,h3,h4 { font-family:'Cormorant Garamond',serif; font-weight:700; line-height:1.18; }
+    a { text-decoration:none; color:inherit; }
+    img { width:100%; display:block; object-fit:cover; }
+
+    /* ====================================================
+       NAV
+       ==================================================== */
+    nav {
+      position:sticky; top:0; z-index:200;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 5%;
+      background:var(--cafe-oscuro);
+      box-shadow:0 2px 20px rgba(0,0,0,0.35);
+    }
+    .logo { display:flex; align-items:center; gap:13px; }
+    .logo-emoji { font-size:1.9rem; line-height:1; }
+    .logo-wrap { display:flex; flex-direction:column; }
+    .logo-name {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.3rem; font-weight:700;
+      color:var(--miel-claro); letter-spacing:.02em;
+    }
+    .logo-loc {
+      font-size:.62rem; color:#9a8060;
+      font-family:'Nunito',sans-serif; font-weight:300;
+      letter-spacing:.18em; text-transform:uppercase;
+    }
+    .nav-ig {
+      display:flex; align-items:center; gap:8px;
+      color:#e8d8b0; font-size:.85rem; font-weight:600;
+      letter-spacing:.06em; text-transform:uppercase;
+      padding:8px 18px; border:1px solid rgba(255,255,255,.15);
+      border-radius:30px; transition:all .2s;
+    }
+    .nav-ig:hover { background:rgba(255,255,255,.08); color:var(--miel-claro); }
+    .ig-icon { font-size:1.1rem; }
+
+    /* ====================================================
+       HERO
+       ==================================================== */
+    .hero {
+      position:relative; min-height:95vh;
+      display:flex; align-items:center; justify-content:center;
+      overflow:hidden; text-align:center;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=85');
+      background-size:cover; background-position:center 40%;
+      filter:brightness(.38) saturate(.85);
+      transform:scale(1.06); transition:transform 9s ease;
+    }
+    .hero:hover .hero-bg { transform:scale(1); }
+    .hero-grad {
+      position:absolute; inset:0;
+      background:linear-gradient(170deg,rgba(14,5,0,.2) 0%,rgba(14,5,0,.78) 100%);
+    }
+    .hero-content {
+      position:relative; z-index:2;
+      max-width:800px; padding:40px 24px;
+      animation:fadeUp .9s ease both;
+    }
+    .hero-badge {
+      display:inline-block; margin-bottom:22px;
+      padding:6px 22px; background:var(--miel);
+      color:#fff; font-size:.75rem; font-weight:700;
+      letter-spacing:.18em; text-transform:uppercase; border-radius:40px;
+    }
+    .hero h1 {
+      font-size:clamp(3rem,7vw,5.8rem);
+      color:#fff; margin-bottom:8px;
+      text-shadow:0 2px 24px rgba(0,0,0,.55);
+    }
+    .hero h1 em { font-style:italic; color:var(--miel-claro); }
+    .hero-sub {
+      font-family:'Cormorant Garamond',serif;
+      font-size:clamp(1.05rem,2.5vw,1.5rem);
+      font-style:italic; color:#d4b880;
+      margin-bottom:22px;
+    }
+    .hero p {
+      font-size:1.05rem; color:#ddd0b8;
+      max-width:560px; margin:0 auto 38px;
+    }
+    .hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+    .btn {
+      display:inline-flex; align-items:center; gap:9px;
+      padding:14px 32px; border-radius:5px;
+      font-size:.95rem; font-weight:700;
+      font-family:'Nunito',sans-serif;
+      cursor:pointer; border:none;
+      transition:transform .2s, box-shadow .2s;
+    }
+    .btn:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(0,0,0,.28); }
+    .btn-wsp { background:var(--wsp); color:#fff; }
+    .btn-wsp:hover { background:#1dba58; }
+    .btn-outline { border:2px solid rgba(255,255,255,.55); color:#fff; background:transparent; }
+    .btn-outline:hover { background:rgba(255,255,255,.12); }
+
+    /* urgencia hero */
+    .stock-alert {
+      display:inline-flex; align-items:center; gap:8px;
+      margin-top:28px; padding:9px 20px;
+      background:rgba(220,50,30,.18); border:1px solid rgba(220,80,40,.4);
+      border-radius:30px; color:#ffb090; font-size:.82rem; font-weight:700;
+      animation:pulse 2.2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.65} }
+
+    /* ====================================================
+       SECCIÓN GENÉRICA
+       ==================================================== */
+    .sec { padding:88px 5%; }
+    .sec-inner { max-width:1150px; margin:0 auto; }
+    .tag {
+      display:inline-block; font-size:.7rem; font-weight:700;
+      letter-spacing:.22em; text-transform:uppercase;
+      color:var(--miel); margin-bottom:10px;
+    }
+    .sec h2 { font-size:clamp(2rem,4vw,3.2rem); color:var(--cafe-oscuro); margin-bottom:18px; }
+    .divider { width:52px; height:3px; background:var(--miel); border-radius:2px; margin-bottom:26px; }
+    .divider.center { margin-left:auto; margin-right:auto; }
+
+    /* ====================================================
+       PROPUESTA DE VALOR (2 columnas)
+       ==================================================== */
+    .about-grid {
+      display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center;
+    }
+    .about-img {
+      border-radius:8px; overflow:hidden;
+      box-shadow:0 18px 52px var(--sombra); aspect-ratio:4/3;
+    }
+    .about-img img { height:100%; transition:transform .6s; }
+    .about-img:hover img { transform:scale(1.05); }
+    .about-text p { font-size:1.03rem; color:#3d2808; margin-bottom:16px; }
+    .pull-quote {
+      background:var(--cafe-oscuro); color:var(--miel-claro);
+      padding:20px 28px; border-radius:5px;
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.42rem; font-style:italic;
+      border-left:4px solid var(--miel); margin:28px 0;
+    }
+    .pillars {
+      display:flex; gap:14px; flex-wrap:wrap; margin-top:24px;
+    }
+    .pillar {
+      display:flex; align-items:center; gap:8px;
+      background:var(--crema-2); border:1px solid #e0c880;
+      border-radius:30px; padding:7px 16px;
+      font-size:.83rem; font-weight:700; color:var(--miel-hover);
+    }
+
+    /* ====================================================
+       PRODUCTOS
+       ==================================================== */
+    .products-sec {
+      background:var(--cafe-oscuro); padding:88px 5%;
+    }
+    .products-sec .tag { color:var(--miel-claro); }
+    .products-sec h2 { color:var(--crema); }
+    .products-sec .divider.center { }
+    .products-lead { text-align:center; color:#a09070; font-size:.98rem; max-width:580px; margin:0 auto 56px; }
+
+    .products-grid {
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr));
+      gap:32px; max-width:800px; margin:0 auto;
+    }
+    .prod-card {
+      background:#1a0e04; border:1px solid rgba(255,255,255,.06);
+      border-radius:12px; overflow:hidden;
+      transition:transform .32s, box-shadow .32s;
+      display:flex; flex-direction:column;
+    }
+    .prod-card:hover {
+      transform:translateY(-10px);
+      box-shadow:0 24px 60px rgba(0,0,0,.5);
+    }
+    .prod-img { position:relative; aspect-ratio:3/2; overflow:hidden; flex-shrink:0; }
+    .prod-img img { height:100%; transition:transform .55s; }
+    .prod-card:hover .prod-img img { transform:scale(1.08); }
+
+    /* badge descuento */
+    .disc-badge {
+      position:absolute; top:14px; right:14px;
+      background:#e02020; color:#fff;
+      font-size:.78rem; font-weight:800;
+      padding:5px 11px; border-radius:20px;
+      letter-spacing:.05em;
+      box-shadow:0 4px 14px rgba(220,0,0,.45);
+    }
+    .stock-badge {
+      position:absolute; bottom:14px; left:14px;
+      background:rgba(0,0,0,.72); color:#ffb090;
+      font-size:.72rem; font-weight:700;
+      padding:5px 12px; border-radius:20px;
+      border:1px solid rgba(220,80,40,.4);
+      animation:pulse 2s infinite;
+    }
+
+    .prod-body { padding:26px 28px 32px; flex:1; display:flex; flex-direction:column; }
+    .prod-name {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.75rem; font-weight:700; color:var(--miel-claro);
+      margin-bottom:6px;
+    }
+    .prod-tags { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+    .prod-tag {
+      background:rgba(255,255,255,.06);
+      color:#c0a070; font-size:.72rem; font-weight:700;
+      padding:4px 11px; border-radius:20px; letter-spacing:.06em; text-transform:uppercase;
+    }
+    .prod-desc { font-size:.95rem; color:#8a7060; margin-bottom:20px; flex:1; }
+    .prod-props { margin-bottom:22px; }
+    .prod-props li {
+      list-style:none; font-size:.88rem; color:#b0a080;
+      padding:5px 0; border-bottom:1px solid rgba(255,255,255,.05);
+      display:flex; align-items:center; gap:8px;
+    }
+    .prod-props li span { font-size:1rem; }
+
+    /* precio tachado + nuevo */
+    .price-row {
+      display:flex; align-items:baseline; gap:12px; margin-bottom:18px;
+    }
+    .price-old {
+      font-family:'Cormorant Garamond',serif;
+      font-size:1.3rem; color:#5a4030;
+      text-decoration:line-through;
+    }
+    .price-new {
+      font-family:'Cormorant Garamond',serif;
+      font-size:2.2rem; font-weight:700; color:#4ddf80;
+    }
+    .price-cop { font-size:.8rem; color:#6a8060; margin-left:2px; }
+    .price-save {
+      font-size:.78rem; color:#ff8060; font-weight:700;
+      background:rgba(220,50,20,.15); padding:3px 10px; border-radius:12px;
+    }
+
+    .btn-prod-wsp {
+      display:flex; align-items:center; justify-content:center; gap:10px;
+      padding:15px; background:var(--wsp); color:#fff;
+      border:none; border-radius:7px;
+      font-size:1rem; font-weight:800; font-family:'Nunito',sans-serif;
+      cursor:pointer; transition:background .2s, transform .15s;
+      width:100%;
+    }
+    .btn-prod-wsp:hover { background:#1dba58; transform:scale(1.02); }
+
+    /* ====================================================
+       MODELO DE NEGOCIO / CÓMO FUNCIONA
+       ==================================================== */
+    .how-sec { background:var(--verde); padding:80px 5%; }
+    .how-inner { max-width:1100px; margin:0 auto; text-align:center; }
+    .how-sec h2 { color:var(--crema); margin-bottom:50px; }
+    .how-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:28px; }
+    .how-card {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+      border-radius:10px; padding:34px 22px; text-align:center;
+      transition:transform .3s, background .3s;
+    }
+    .how-card:hover { transform:translateY(-6px); background:rgba(200,136,10,.12); }
+    .how-num { font-family:'Cormorant Garamond',serif; font-size:2.8rem; color:var(--miel-claro); font-weight:700; margin-bottom:10px; }
+    .how-card h3 { color:#e0f0d0; font-size:1.15rem; margin-bottom:10px; }
+    .how-card p { color:#7a9a70; font-size:.9rem; }
+
+    /* ====================================================
+       GALERÍA
+       ==================================================== */
+    .gallery-sec { padding:80px 5%; background:var(--crema-2); }
+    .gallery-inner { max-width:1200px; margin:0 auto; }
+    .gallery-inner h2 { font-size:clamp(2rem,3.5vw,2.8rem); color:var(--cafe-oscuro); margin-bottom:8px; }
+    .gallery-inner p.sub { color:#7a5c3a; margin-bottom:40px; font-size:.98rem; }
+    .gallery-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      grid-auto-rows:220px;
+      gap:14px;
+    }
+    .g-item { border-radius:8px; overflow:hidden; box-shadow:0 4px 16px var(--sombra); }
+    .g-item img { width:100%; height:100%; transition:transform .5s; }
+    .g-item:hover img { transform:scale(1.07); }
+    .g-item:first-child { grid-column:1/3; grid-row:1/3; }
+
+    /* ====================================================
+       CONTACTO / CTA FINAL
+       ==================================================== */
+    .cta-sec {
+      background:var(--cafe-oscuro);
+      padding:100px 5%; text-align:center;
+    }
+    .cta-sec h2 { font-size:clamp(2.2rem,5vw,4rem); color:var(--crema); margin-bottom:14px; }
+    .cta-sec h2 em { font-style:italic; color:var(--miel-claro); }
+    .cta-sec p { color:#9a8060; font-size:1.05rem; max-width:540px; margin:0 auto 36px; }
+    .wsp-big {
+      display:inline-flex; align-items:center; gap:14px;
+      padding:18px 44px;
+      background:var(--wsp); color:#fff;
+      border-radius:8px; font-size:1.2rem; font-weight:800;
+      font-family:'Nunito',sans-serif;
+      box-shadow:0 10px 36px rgba(37,211,102,.35);
+      transition:transform .2s, box-shadow .2s;
+    }
+    .wsp-big:hover { transform:translateY(-3px); box-shadow:0 16px 44px rgba(37,211,102,.5); }
+    .wsp-num {
+      margin-top:20px; font-size:.95rem;
+      color:#5a4030; letter-spacing:.06em;
+    }
+    .wsp-num a { color:var(--miel); font-weight:700; }
+    .contact-cards {
+      display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin-top:48px;
+    }
+    .contact-card {
+      background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08);
+      border-radius:10px; padding:26px 32px; text-align:center; min-width:200px;
+      transition:background .2s;
+    }
+    .contact-card:hover { background:rgba(255,255,255,.09); }
+    .contact-card .icon { font-size:2rem; margin-bottom:10px; }
+    .contact-card p { color:#8a7050; font-size:.82rem; text-transform:uppercase; letter-spacing:.1em; font-weight:700; margin-bottom:6px; }
+    .contact-card a, .contact-card span { color:var(--miel-claro); font-size:.97rem; font-weight:700; }
+
+    /* ====================================================
+       FOOTER
+       ==================================================== */
+    footer {
+      background:#070200; color:#5a4830;
+      text-align:center; padding:40px 5%;
+    }
+    .foot-brand { font-family:'Cormorant Garamond',serif; font-size:1.5rem; color:var(--miel-claro); margin-bottom:8px; }
+    .foot-links { display:flex; justify-content:center; gap:24px; list-style:none; margin:14px 0; flex-wrap:wrap; }
+    .foot-links a { color:#5a4830; font-size:.82rem; transition:color .2s; }
+    .foot-links a:hover { color:var(--miel-claro); }
+    footer small { display:block; margin-top:18px; font-size:.75rem; opacity:.5; }
+
+    /* ====================================================
+       ANIMACIONES
+       ==================================================== */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(30px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+
+    /* ====================================================
+       RESPONSIVE
+       ==================================================== */
+    @media(max-width:860px) {
+      .about-grid { grid-template-columns:1fr; }
+      .gallery-grid { grid-template-columns:1fr 1fr; grid-auto-rows:180px; }
+      .g-item:first-child { grid-column:1/-1; grid-row:auto; }
+    }
+    @media(max-width:600px) {
+      nav .nav-ig .ig-label { display:none; }
+      .gallery-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+<!-- ====================================================
+     NAVEGACIÓN
+     ==================================================== -->
+<nav>
+<div class="logo">
+<span class="logo-emoji">🌿</span>
+<div class="logo-wrap">
+<span class="logo-name">Colmenas del Bosque</span>
+<span class="logo-loc">Ibagué, Tolima · Colombia</span>
+</div>
+</div>
+<!-- Solo enlaza Instagram, como lo pediste -->
+<a class="nav-ig" href="https://www.instagram.com/hacienda_mone/?hl=es" target="_blank">
+<span class="ig-icon">📸</span>
+<span class="ig-label">Instagram</span>
+</a>
+</nav>
+<!-- ====================================================
+     HERO
+     ==================================================== -->
+<section class="hero">
+<div class="hero-bg"></div>
+<div class="hero-grad"></div>
+<div class="hero-content">
+<div class="hero-badge">🌿 Ibagué, Tolima · Colombia</div>
+<h1>Miel Cruda,<br/><em>Del Bosque a Ti</em></h1>
+<div class="hero-sub">Apicultura comunitaria con fincas cafeteras del Tolima</div>
+<p>
+      Producimos miel 100% cruda, sin conservantes ni procesos industriales.
+      Cada frasco proviene de colmenas instaladas en bosques nativos y reservas
+      forestales de fincas aliadas en el Tolima.
+    </p>
+<div class="hero-btns">
+<a class="btn btn-wsp" href="https://wa.me/573143919329?text=Hola%2C%20me%20interesa%20conocer%20más%20sobre%20Colmenas%20del%20Bosque%20🌿" target="_blank">
+        📲 Contáctanos por WhatsApp
+      </a>
+<a class="btn btn-outline" href="#productos">Ver productos ↓</a>
+</div>
+<div class="stock-alert">
+      🔥  ¡Quedan pocas unidades disponibles con descuento de temporada!
+    </div>
+</div>
+</section>
+<!-- ====================================================
+     SOBRE NOSOTROS
+     ==================================================== -->
+<section class="sec">
+<div class="sec-inner">
+<div class="about-grid">
+<div class="about-img">
+<!-- Foto: colmenas en bosque / finca cafetera -->
+<img alt="Finca cafetera Tolima con colmenas" src="https://images.unsplash.com/photo-1471193945509-9ad0617afabf?w=900&amp;q=82"/>
+</div>
+<div class="about-text">
+<span class="tag">Quiénes somos</span>
+<h2>Colmenas del Bosque</h2>
+<div class="divider"></div>
+<p>
+          Somos una empresa apícola con sede en Ibagué, Tolima, dedicada a producir
+          y comercializar miel cruda y productos derivados de alto valor. Nuestro
+          modelo se basa en un esquema de <strong>arrendamiento comunitario con
+          fincas cafeteras y cacaoteras</strong> del departamento.
+        </p>
+<p>
+          Instalamos colmenas en espacios subutilizados —bosques nativos, reservas
+          forestales, zonas de montaña— activando económicamente esas tierras
+          <em>sin necesidad de deforestarlas</em>. A cambio, cada finca aliada recibe
+          el 20% de la producción mensual como pago de arrendamiento en especie.
+        </p>
+<div class="pull-quote">
+          "Donde otros ven tierra ociosa, nosotros vemos un ecosistema esperando despertar."
+        </div>
+<div class="pillars">
+<span class="pillar">🌱 100% Cruda &amp; Natural</span>
+<span class="pillar">🤝 Fincas Aliadas</span>
+<span class="pillar">🌍 Sin Deforestar</span>
+<span class="pillar">📦 Frasco sellado 250 g</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ====================================================
+     PRODUCTOS  (con descuento de temporada)
+     ==================================================== -->
+<section class="products-sec" id="productos">
+<div style="max-width:1150px;margin:0 auto">
+<div style="text-align:center;margin-bottom:12px">
+<span class="tag" style="color:var(--miel-claro)">Lo que producimos</span>
+</div>
+<h2 style="color:var(--crema);text-align:center;font-size:clamp(2rem,4vw,3.2rem);margin-bottom:12px">
+      Nuestros Productos
+    </h2>
+<div class="divider center"></div>
+<p class="products-lead">
+      Dos líneas únicas de miel cruda con ingredientes funcionales y gourmet.
+      Presentación de <strong style="color:var(--miel-claro)">250 g en frasco sellado y etiquetado</strong>.
+      Precio especial de temporada — ¡quedan pocas unidades!
+    </p>
+<div class="products-grid">
+<!-- ── PRODUCTO 1: Defensa del Bosque ── -->
+<div class="prod-card">
+<div class="prod-img">
+
+<span class="disc-badge">29% OFF</span>
+<span class="stock-badge">🔥 Pocas unidades</span>
+</div>
+<div class="prod-body">
+<div class="prod-name">Defensa del Bosque</div>
+<div class="prod-tags">
+<span class="prod-tag">🛡️ Inmune</span>
+<span class="prod-tag">Funcional</span>
+<span class="prod-tag">250 g</span>
+</div>
+<p class="prod-desc">
+            Nuestro producto insignia con el mayor perfil inmunológico de la línea.
+            Miel cruda combinada con propóleo y pólen, respaldados por sus
+            propiedades antimicrobianas y nutricionales reconocidas en medicina natural.
+          </p>
+<ul class="prod-props">
+<li><span>🍯</span> 225 g de miel cruda pura</li>
+<li><span>🌸</span> 12.5 g de pólen natural</li>
+<li><span>🌿</span> 12.5 g de extracto de propóleo</li>
+<li><span>✅</span> Sin conservantes · Sin adulterantes</li>
+</ul>
+<div class="price-row">
+<span class="price-old">$35.000</span>
+<span class="price-new">$25.000 <span class="price-cop">COP</span></span>
+<span class="price-save">Ahorras $10.000</span>
+</div>
+<button class="btn-prod-wsp" onclick="window.open('https://wa.me/573143919329?text=Hola%2C%20quiero%20el%20*Defensa%20del%20Bosque*%20(oferta%20de%20temporada%20%2425.000%20COP).%20%C2%BFTienen%20unidades%20disponibles%3F%20🌿','_blank')">
+            📲 Pedir por WhatsApp
+          </button>
+</div>
+</div>
+<!-- ── PRODUCTO 2: Fuego del Bosque ── -->
+<div class="prod-card">
+<div class="prod-img">
+
+<span class="disc-badge">29% OFF</span>
+<span class="stock-badge">🔥 Pocas unidades</span>
+</div>
+<div class="prod-body">
+<div class="prod-name">Fuego del Bosque</div>
+<div class="prod-tags">
+<span class="prod-tag">🌶️ Picante</span>
+<span class="prod-tag">Gourmet</span>
+<span class="prod-tag">250 g</span>
+</div>
+<p class="prod-desc">
+            El más atrevido de la línea. Miel cruda con ají molido y chile seco,
+            una combinación gourmet que mezcla el dulce natural con el picante.
+            Alta rotación y diferenciación en mercados especializados y tiendas naturistas.
+          </p>
+<ul class="prod-props">
+<li><span>🍯</span> 230 g de miel cruda pura</li>
+<li><span>🌶️</span> 10 g de ají seco molido</li>
+<li><span>🌶️</span> 10 g de chile seco molido</li>
+<li><span>✅</span> Sin conservantes · Sin adulterantes</li>
+</ul>
+<div class="price-row">
+<span class="price-old">$35.000</span>
+<span class="price-new">$25.000 <span class="price-cop">COP</span></span>
+<span class="price-save">Ahorras $10.000</span>
+</div>
+<button class="btn-prod-wsp" onclick="window.open('https://wa.me/573143919329?text=Hola%2C%20quiero%20el%20*Fuego%20del%20Bosque*%20(oferta%20de%20temporada%20%2425.000%20COP).%20%C2%BFTienen%20unidades%20disponibles%3F%20🌿','_blank')">
+            📲 Pedir por WhatsApp
+          </button>
+</div>
+</div>
+</div><!-- /products-grid -->
+<!-- Nota B2B -->
+<p style="text-align:center;margin-top:42px;color:#6a5040;font-size:.88rem;max-width:560px;margin-left:auto;margin-right:auto;">
+      🏪 ¿Tienda naturista, supermercado especializado o distribuidor?
+      <a href="https://wa.me/573143919329?text=Hola%2C%20soy%20distribuidor%20y%20quiero%20información%20de%20precios%20al%20por%20mayor%20de%20Colmenas%20del%20Bosque%20🌿" style="color:var(--miel-claro);font-weight:700;" target="_blank">
+        Escríbenos para precios al por mayor →
+      </a>
+</p>
+</div>
+</section>
+<!-- ====================================================
+     CÓMO FUNCIONA EL MODELO
+     ==================================================== -->
+<section class="how-sec">
+<div class="how-inner">
+<span class="tag" style="color:var(--miel-claro);display:block;text-align:center;margin-bottom:10px">Nuestro modelo</span>
+<h2>De la Finca a tu Frasco</h2>
+<div class="how-grid">
+<div class="how-card">
+<div class="how-num">01</div>
+<h3>Fincas Aliadas</h3>
+<p>Aliamos con fincas cafeteras y cacaoteras del Tolima que tienen bosques nativos y zonas de montaña subutilizadas.</p>
+</div>
+<div class="how-card">
+<div class="how-num">02</div>
+<h3>Colmenas en Bosque</h3>
+<p>Instalamos colmenas sin deforestar. La finca recibe el 20% de la producción mensual como pago de arrendamiento.</p>
+</div>
+<div class="how-card">
+<div class="how-num">03</div>
+<h3>Cosecha y Proceso</h3>
+<p>Cosechamos, filtramos y envasamos en nuestra bodega en Ibagué. Sin calor excesivo, sin aditivos, sin adulterantes.</p>
+</div>
+<div class="how-card">
+<div class="how-num">04</div>
+<h3>A tu Mesa</h3>
+<p>Miel cruda con trazabilidad real. Cada frasco tiene origen verificable y lleva la historia de la finca donde nació.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ====================================================
+     GALERÍA DE FOTOS
+     Reemplaza las URLs con tus fotos reales de Tolima
+     ==================================================== -->
+<section class="gallery-sec">
+<div class="gallery-inner">
+<h2>Desde el Tolima 🌿</h2>
+<p class="sub">Bosques nativos, colmenas y miel cruda — todo nace aquí</p>
+<div class="gallery-grid">
+<!-- Imagen grande -->
+<div class="g-item">
+<img alt="Colmenas en bosque" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&amp;q=80"/>
+</div>
+<div class="g-item">
+<img alt="Abeja" src="https://images.unsplash.com/photo-1591154669695-5f2a8d20c089?w=600&amp;q=80"/>
+</div>
+<div class="g-item">
+<img alt="Miel cruda" src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=600&amp;q=80"/>
+</div>
+<div class="g-item">
+<img alt="Panal" src="https://images.unsplash.com/photo-1541848756149-af508bff31cd?w=600&amp;q=80"/>
+</div>
+<div class="g-item">
+<img alt="Finca Tolima" src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&amp;q=80"/>
+</div>
+</div>
+</div>
+</section>
+<!-- ====================================================
+     CTA CONTACTO FINAL
+     ==================================================== -->
+<section class="cta-sec" id="contacto">
+<span class="tag" style="color:var(--miel-claro)">Contáctanos</span>
+<h2 style="margin-top:8px">Escríbenos y<br/><em>pedimos juntos</em></h2>
+<p>
+    Estamos disponibles por WhatsApp para pedidos, distribución al por mayor
+    y cualquier pregunta sobre nuestros productos. Respondemos rápido.
+  </p>
+<a class="wsp-big" href="https://wa.me/573143919329?text=Hola%20Colmenas%20del%20Bosque%20🌿%2C%20quiero%20más%20información%20sobre%20sus%20productos." target="_blank">
+    📲 Escribir por WhatsApp
+  </a>
+<p class="wsp-num">
+    O escribe directamente al
+    <a href="https://wa.me/573143919329" target="_blank">+57 314 391 9329</a>
+</p>
+<div class="contact-cards">
+<div class="contact-card">
+<div class="icon">📲</div>
+<p>WhatsApp</p>
+<a href="https://wa.me/573143919329" target="_blank">+57 314 391 9329</a>
+</div>
+<div class="contact-card">
+<div class="icon">📸</div>
+<p>Instagram</p>
+<a href="https://www.instagram.com/hacienda_mone/?hl=es" target="_blank">@hacienda_mone</a>
+</div>
+<div class="contact-card">
+<div class="icon">📍</div>
+<p>Ubicación</p>
+<span>Ibagué, Tolima · Colombia</span>
+</div>
+</div>
+</section>
+<!-- ====================================================
+     FOOTER
+     ==================================================== -->
+<footer>
+<div class="foot-brand">🌿 Colmenas del Bosque</div>
+<p style="font-size:.85rem;margin-bottom:4px">Apicultura Comunitaria · Ibagué, Tolima, Colombia</p>
+<ul class="foot-links">
+<li><a href="#productos">Productos</a></li>
+<li><a href="#contacto">Contacto</a></li>
+<li><a href="https://www.instagram.com/hacienda_mone/?hl=es" target="_blank">Instagram</a></li>
+<li><a href="https://wa.me/573143919329" target="_blank">WhatsApp</a></li>
+</ul>
+<small>© 2025 Colmenas del Bosque · Hecho con 🌿 en el Tolima</small>
+</footer>
+</body>
+</html>
